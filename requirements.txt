@@ -1,0 +1,20 @@
+# Core AI & Data
+openai>=1.0.0
+pandas>=2.0.0
+numpy
+
+# Configuration & Parsing
+PyYAML
+toml
+
+# GitHub Integration
+PyGithub
+GitPython
+
+# Drift Detection & Audit
+deepdiff  # Excellent for comparing JSON/YAML structures
+checkov   # (Optional) Industry standard infrastructure auditor
+
+# Environment & Utilities
+python-dotenv
+jupyter   # For your notebook demonstrations
