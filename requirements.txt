@@ -16,3 +16,5 @@ checkov   # (Optional) Industry standard infrastructure auditor
 # Environment & Utilities
 python-dotenv
 jupyter   # For your notebook demonstrations
+
+google-genai
