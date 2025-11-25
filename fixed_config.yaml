@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: vote
-  namespace: vote-app
   labels:
     app: vote
+  name: vote
+  namespace: vote-app
 spec:
   replicas: 1
   selector:
@@ -17,38 +17,37 @@ spec:
     spec:
       automountServiceAccountToken: false
       securityContext:
-        runAsNonRoot: true
-        runAsUser: 10001
         seccompProfile:
           type: RuntimeDefault
       containers:
-      - name: vote
-        image: dockersamples/examplevotingapp_vote:v1.0@sha256:d82e2c4e1f744e4e0b53c1b01a61c4f5a3e1c2a1c2a1c2a1c2a1c2a1c2a1c2a
+      - image: dockersamples/examplevotingapp_vote:v1.0
+        name: vote
         ports:
         - containerPort: 80
           name: vote
         resources:
-          requests:
-            cpu: 100m
-            memory: 128Mi
           limits:
-            cpu: 200m
+            cpu: 500m
             memory: 256Mi
+          requests:
+            cpu: 250m
+            memory: 128Mi
         securityContext:
           allowPrivilegeEscalation: false
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 10001
           capabilities:
             drop:
             - ALL
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 10001
         livenessProbe:
           httpGet:
             path: /
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
-          timeoutSeconds: 3
+          timeoutSeconds: 5
+          successThreshold: 1
           failureThreshold: 3
         readinessProbe:
           httpGet:
@@ -56,5 +55,6 @@ spec:
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
-          timeoutSeconds: 3
+          timeoutSeconds: 5
+          successThreshold: 1
           failureThreshold: 3
