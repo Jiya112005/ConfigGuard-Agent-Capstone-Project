@@ -15,10 +15,13 @@ spec:
       labels:
         app: vote
     spec:
-      automountServiceAccountToken: false
       securityContext:
+        runAsUser: 10001
+        runAsGroup: 10001
+        fsGroup: 10001
         seccompProfile:
           type: RuntimeDefault
+      automountServiceAccountToken: false
       containers:
       - image: dockersamples/examplevotingapp_vote:v1.0
         name: vote
@@ -34,27 +37,22 @@ spec:
             memory: 128Mi
         securityContext:
           allowPrivilegeEscalation: false
-          capabilities:
-            drop:
-            - ALL
           readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 10001
+          capabilities:
+            drop: ["ALL"]
+          seccompProfile:
+            type: RuntimeDefault
         livenessProbe:
           httpGet:
             path: /
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 3
         readinessProbe:
           httpGet:
             path: /
             port: 80
           initialDelaySeconds: 5
           periodSeconds: 10
-          timeoutSeconds: 5
-          successThreshold: 1
-          failureThreshold: 3

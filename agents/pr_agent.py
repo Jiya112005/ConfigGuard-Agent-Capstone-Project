@@ -9,7 +9,7 @@ class PRAgent: #Pull request agent
         self.github_token = os.getenv("GITHUB_TOKEN")
         self.repo_name = os.getenv("TARGET_REPO")
         self.client=Github(self.github_token)
-    def create_pull_request(self,fixed_yaml_content,file_path="app_config.yaml"):
+    def create_pull_request(self,fixed_yaml_content,file_path="k8s-specifications/vote-deployment.yaml"):
         """ Creates a new branch, commits the fix , and opens a PULL REQUEST (PR)"""
         print(f"PR AGENT: Preparing to push fixes ")
         try:
