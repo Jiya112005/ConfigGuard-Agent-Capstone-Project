@@ -1,8 +1,0 @@
-.env
-.git
-.gitignore
-venv/
-__pycache__
-*.pyc
-temp_audit.yaml
-fixed_config.yaml
